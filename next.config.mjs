@@ -6,15 +6,22 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Add this empty turbopack config
-  turbopack: {},
-  webpack: (config) => {
+  // Remove turbopack config entirely
+  // turbopack: {}, // ← REMOVE THIS LINE
+  webpack: (config, { isServer }) => {
     config.resolve.fallback = {
       ...config.resolve.fallback,
       "pino-pretty": false,
       lokijs: false,
       encoding: false,
     };
+    
+    // Add a rule to ignore problematic test files
+    config.module.rules.push({
+      test: /node_modules\/thread-stream\/test/,
+      use: 'null-loader',
+    });
+    
     config.ignoreWarnings = [
       { module: /node_modules\/pino/ },
       { module: /node_modules\/thread-stream/ },
