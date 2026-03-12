@@ -6,8 +6,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Disable Turbopack entirely
-  turbopack: null,
+  // ❌ REMOVE the turbopack line entirely
+  // turbopack: null,  ← DELETE THIS
   webpack: (config, { isServer }) => {
     config.resolve.fallback = {
       ...config.resolve.fallback,
