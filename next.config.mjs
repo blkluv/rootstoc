@@ -6,8 +6,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Add this empty turbopack config
-  turbopack: {},
+  // Disable Turbopack entirely
+  turbopack: null,
   webpack: (config, { isServer }) => {
     config.resolve.fallback = {
       ...config.resolve.fallback,
@@ -15,6 +15,12 @@ const nextConfig = {
       lokijs: false,
       encoding: false,
     };
+    
+    // Add a rule to ignore problematic test files
+    config.module.rules.push({
+      test: /node_modules\/thread-stream\/test/,
+      use: 'null-loader',
+    });
     
     config.ignoreWarnings = [
       { module: /node_modules\/pino/ },
