@@ -6,12 +6,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  turbopack: {
-    resolveAlias: {
-      // Ignore test files from thread-stream
-      'thread-stream/test': false,
-    },
-  },
+  // turbopack: {}, // ← REMOVE ENTIRELY
   webpack: (config) => {
     config.resolve.fallback = {
       ...config.resolve.fallback,
